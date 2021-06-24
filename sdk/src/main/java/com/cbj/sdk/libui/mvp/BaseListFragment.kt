@@ -87,11 +87,11 @@ open abstract class BaseListFragment<M,T:ViewBinding>(layoutRes:Int):BaseFragmen
 
     }
 
-    protected fun refreshBegin(){
+    protected open fun refreshBegin(){
         mListSrl?.isRefreshing = true
     }
 
-    protected fun refreshFinish(){
+    protected open fun refreshFinish(){
         mListSrl?.isRefreshing = false
     }
 
@@ -102,7 +102,7 @@ open abstract class BaseListFragment<M,T:ViewBinding>(layoutRes:Int):BaseFragmen
         }
     }
 
-    protected fun onLoad(curPage:Int){
+    protected open fun onLoad(curPage:Int){
 
     }
 
