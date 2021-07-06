@@ -97,9 +97,9 @@ abstract class BaseActivity :AppCompatActivity() {
 
 
     var myToast : Toast?=null
-    fun showToast(msg:String){
+    fun showToast(msg:String?){
+        if (msg.isNullOrEmpty()) return
         runOnUiThread {
-            if (msg.isNullOrEmpty()) return@runOnUiThread
             myToast?.cancel()
             myToast = Toast.makeText(this,msg, Toast.LENGTH_SHORT)
             myToast?.setGravity(Gravity.CENTER,0,0)
@@ -108,9 +108,9 @@ abstract class BaseActivity :AppCompatActivity() {
 
     }
 
-    fun showToast(msg:String,gravity:Int){
+    fun showToast(msg:String?,gravity:Int){
+        if (msg.isNullOrEmpty()) return
         runOnUiThread {
-            if (msg.isNullOrEmpty()) return@runOnUiThread
             myToast?.cancel()
             myToast = Toast.makeText(this,msg, Toast.LENGTH_SHORT)
             myToast?.setGravity(gravity,0,0)
@@ -119,7 +119,8 @@ abstract class BaseActivity :AppCompatActivity() {
     }
 
 
-    fun showSnack(msg:String){
+    fun showSnack(msg:String?){
+        if (msg.isNullOrEmpty())return
         runOnUiThread {
             Snackbar.make(getView(),msg,Snackbar.LENGTH_SHORT).show()
         }

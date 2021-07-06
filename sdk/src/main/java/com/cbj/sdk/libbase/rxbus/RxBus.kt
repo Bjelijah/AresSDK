@@ -28,7 +28,7 @@ class RxBus private constructor(){
      */
     fun postWithCode(code:Int,action:Any) = bus.onNext(Action(code,action))
 
-
+    fun postWithCode(code:String,action:Any) = bus.onNext(Action2(code,action))
 
     fun <T> toObservable(eventType:Class<T>): Observable<T> = bus.ofType(eventType)
 
@@ -43,4 +43,11 @@ class RxBus private constructor(){
                 .filter { it.code==code }
                 .map { it.data }
                 .cast(eventType)
+
+    fun <T> toObservableWithCode(code:String,eventType:Class<T>): Observable<T> =
+        bus.ofType(Action2::class.java)
+            .filter { it.code==code }
+            .map { it.data }
+            .cast(eventType)
+
 }

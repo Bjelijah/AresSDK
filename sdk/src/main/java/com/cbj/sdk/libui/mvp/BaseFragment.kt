@@ -59,7 +59,8 @@ open abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
     abstract fun deinitView()
 
     var myToast : Toast?=null
-    protected fun showToast(msg:String){
+    protected fun showToast(msg:String?){
+        if(msg.isNullOrEmpty())return
         activity?.runOnUiThread {
             myToast?.cancel()
             myToast = Toast.makeText(context,msg, Toast.LENGTH_SHORT)
