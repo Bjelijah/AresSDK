@@ -11,7 +11,7 @@ android {
         minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -83,7 +83,7 @@ uploadArchives {
                         password: 'KvKjXDht(lqq'
                 )
             }
-            pom.version = '1.0.4'
+            pom.version = '1.0.5'
             pom.artifactId = 'SDK'
             pom.groupId = 'com.cbj.Bjelijah'
         }

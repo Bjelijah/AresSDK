@@ -20,14 +20,14 @@ open abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
 
     private var mCompositeDisposable: CompositeDisposable?=null
 
-    protected fun addDisposable(subscription: Disposable){
+    protected open fun addDisposable(subscription: Disposable){
         if (mCompositeDisposable?.isDisposed != false){
             mCompositeDisposable = CompositeDisposable()
         }
         mCompositeDisposable?.add(subscription)
     }
 
-    protected fun dispose() = mCompositeDisposable?.dispose()
+    protected open fun dispose() = mCompositeDisposable?.dispose()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
