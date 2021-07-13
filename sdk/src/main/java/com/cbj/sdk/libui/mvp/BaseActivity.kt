@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 abstract class BaseActivity :AppCompatActivity() {
 
@@ -19,7 +21,16 @@ abstract class BaseActivity :AppCompatActivity() {
     protected var mStateBarHeight = 0
 
 
+    private var mCompositeDisposable: CompositeDisposable?=null
 
+    protected fun addDisposable(subscription: Disposable){
+        if (mCompositeDisposable?.isDisposed != false){
+            mCompositeDisposable = CompositeDisposable()
+        }
+        mCompositeDisposable?.add(subscription)
+    }
+
+    protected fun dispose() = mCompositeDisposable?.dispose()
 
 
 

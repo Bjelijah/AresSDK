@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -12,7 +11,7 @@ android {
         minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -84,7 +83,7 @@ uploadArchives {
                         password: 'KvKjXDht(lqq'
                 )
             }
-            pom.version = '1.0.3'
+            pom.version = '1.0.4'
             pom.artifactId = 'SDK'
             pom.groupId = 'com.cbj.Bjelijah'
         }

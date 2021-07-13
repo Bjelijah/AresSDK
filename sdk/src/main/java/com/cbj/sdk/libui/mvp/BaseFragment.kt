@@ -10,13 +10,25 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.launcher.ARouter
-
-
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 
 open abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
 
     protected var mLayout: View?=null
+
+    private var mCompositeDisposable: CompositeDisposable?=null
+
+    protected fun addDisposable(subscription: Disposable){
+        if (mCompositeDisposable?.isDisposed != false){
+            mCompositeDisposable = CompositeDisposable()
+        }
+        mCompositeDisposable?.add(subscription)
+    }
+
+    protected fun dispose() = mCompositeDisposable?.dispose()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
