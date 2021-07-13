@@ -27,7 +27,7 @@ open abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
         mCompositeDisposable?.add(subscription)
     }
 
-    protected open fun dispose() = mCompositeDisposable?.dispose()
+    public open fun dispose() = mCompositeDisposable?.dispose()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
