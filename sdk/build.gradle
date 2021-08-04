@@ -83,7 +83,7 @@ uploadArchives {
                         password: 'KvKjXDht(lqq'
                 )
             }
-            pom.version = '1.0.6'
+            pom.version = '1.0.7'
             pom.artifactId = 'SDK'
             pom.groupId = 'com.cbj.Bjelijah'
         }

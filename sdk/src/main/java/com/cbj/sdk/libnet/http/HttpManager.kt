@@ -37,8 +37,8 @@ class HttpManager private constructor(){
     var mUploadClient:OkHttpClient?=null
 
     var mUrl:String?=null
-    var mHttpApi: BaseHttpApi?=null
-    var mUploadApi: BaseHttpApi?=null
+    var mHttpApi: Any?=null
+    var mUploadApi: Any?=null
     private val mInterceptors = ArrayList<Interceptor>()
     private var mErrorCb: IErrorCallback?= null
 
@@ -156,7 +156,7 @@ class HttpManager private constructor(){
 
 
 
-    inline fun <reified T:BaseHttpApi> getHttpService(): T {
+    inline fun <reified T> getHttpService(): T {
         if (mHttpApi==null){
             val retrofit = Retrofit.Builder()
                 .client(mClient!!)
@@ -190,7 +190,7 @@ class HttpManager private constructor(){
 
 
 
-    inline fun <reified T:BaseHttpApi> getUploadService(): T {
+    inline fun <reified T> getUploadService(): T {
         if (mUploadApi==null){
             val retrofit = Retrofit.Builder()
                 .client(mUploadClient!!)
