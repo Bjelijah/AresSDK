@@ -6,7 +6,7 @@ import kotlinx.serialization.json.buildJsonArray
 import java.lang.NumberFormatException
 import java.lang.reflect.Type
 
-class ListDefault0Adapter: JsonSerializer<List<String>>, JsonDeserializer<List<String>> {
+class ListDefault0Adapter: JsonSerializer<List<Any>>, JsonDeserializer<List<Any>> {
 
     override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): List<String> {
         try{
@@ -23,7 +23,7 @@ class ListDefault0Adapter: JsonSerializer<List<String>>, JsonDeserializer<List<S
     }
 
     override fun serialize(
-        src: List<String>?,
+        src: List<Any>?,
         typeOfSrc: Type?,
         context: JsonSerializationContext?
     ): JsonElement = JsonParser().parse(Gson().toJson(src))

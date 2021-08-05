@@ -157,7 +157,7 @@ class HttpManager private constructor(){
 
 
     inline fun <reified T> getHttpService(): T {
-        if (mHttpApi==null){
+        if (mHttpApi==null || (mHttpApi!=null && mHttpApi !is T)){
             val retrofit = Retrofit.Builder()
                 .client(mClient!!)
                 .baseUrl(mUrl!!)
@@ -191,7 +191,7 @@ class HttpManager private constructor(){
 
 
     inline fun <reified T> getUploadService(): T {
-        if (mUploadApi==null){
+        if (mUploadApi==null || (mUploadApi !is T && mUploadApi!=null)){
             val retrofit = Retrofit.Builder()
                 .client(mUploadClient!!)
                 .baseUrl(mUrl!!)
