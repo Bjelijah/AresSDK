@@ -174,7 +174,7 @@ class HttpManager private constructor(){
 
 
     //    val listType: Type = object : TypeToken<List<String>>() {}.type
-    val listType: Type = object : TypeToken<MutableList<String>>() {}.type
+    val listType: Type = object : TypeToken<MutableList<Any>>() {}.type
     fun buildGson(): Gson =
         GsonBuilder()
             .registerTypeAdapter(Int::class.java, IntegerDefault0Adapter())

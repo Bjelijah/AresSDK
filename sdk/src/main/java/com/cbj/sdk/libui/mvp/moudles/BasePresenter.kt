@@ -2,6 +2,7 @@ package com.cbj.sdk.libui.mvp.moudles
 
 import android.content.Intent
 import com.alibaba.android.arouter.launcher.ARouter
+import com.cbj.sdk.libbase.exception.MsgThrowable
 import com.cbj.sdk.libnet.http.helper.HeaderInterceptor
 import com.cbj.sdk.libui.ARouterPath
 import io.reactivex.disposables.CompositeDisposable
@@ -51,6 +52,15 @@ open class BasePresenter {
                 false
             }
             else->true//FIXME by cbj test
+        }
+    }
+
+    protected fun checkError(e:Throwable):String{
+        e.printStackTrace()
+        return if (e is MsgThrowable){
+            e.message?:""
+        }else{
+            ERROR_HTTP
         }
     }
 }
