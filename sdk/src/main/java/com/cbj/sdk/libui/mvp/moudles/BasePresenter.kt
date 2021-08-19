@@ -3,6 +3,7 @@ package com.cbj.sdk.libui.mvp.moudles
 import android.content.Intent
 import com.alibaba.android.arouter.launcher.ARouter
 import com.cbj.sdk.libbase.exception.MsgThrowable
+import com.cbj.sdk.libnet.http.bean.ResultBean
 import com.cbj.sdk.libnet.http.helper.HeaderInterceptor
 import com.cbj.sdk.libui.ARouterPath
 import io.reactivex.disposables.CompositeDisposable
@@ -39,10 +40,7 @@ open class BasePresenter {
                 false
             }
             402,403->{ // token已失效,未携带token
-                HeaderInterceptor.TOKEN = null
-                ARouter.getInstance().build(ARouterPath.LOGIN_ATY)
-                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .navigation()
+                onTokenExpired()
                 false
             }
             500->{ //服务器错误
@@ -55,6 +53,13 @@ open class BasePresenter {
         }
     }
 
+    protected fun <T> checkResult(b:ResultBean<T>):Boolean{
+        var res = checkCode(b.code)
+        if (!res) throw MsgThrowable(b.msg)
+        return res
+    }
+
+
     protected fun checkError(e:Throwable):String{
         e.printStackTrace()
         return if (e is MsgThrowable){
@@ -63,4 +68,12 @@ open class BasePresenter {
             ERROR_HTTP
         }
     }
+
+    open fun onTokenExpired(){
+        HeaderInterceptor.TOKEN = null
+        ARouter.getInstance().build(ARouterPath.LOGIN_ATY)
+            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            .navigation()
+    }
+
 }
