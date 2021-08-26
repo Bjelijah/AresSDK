@@ -11,7 +11,7 @@ android {
         minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0.12"
+        versionName "1.0.13"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -60,7 +60,70 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.0'
     implementation 'com.alibaba:arouter-compiler:1.2.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation 'org.aspectj:aspectjtools:1.9.6'
 }
+
+import org.aspectj.bridge.IMessage
+import org.aspectj.bridge.MessageHandler
+import org.aspectj.tools.ajc.Main
+
+final def log = project.logger
+
+android.libraryVariants.all{ variant ->
+
+    variant.outputs.all { output->
+        JavaCompile javaCompile = variant.javaCompileProvider.get()
+        javaCompile.doLast {
+            String[] args = ["-showWeaveInfo",
+                             "-1.8",
+                             "-inpath", javaCompile.destinationDir.toString(),
+                             "-aspectpath", javaCompile.classpath.asPath,
+                             "-d", javaCompile.destinationDir.toString(),
+                             "-classpath", javaCompile.classpath.asPath,
+                             "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+
+            log.debug "ajc args: " + Arrays.toString(args)
+
+            def fullName = ""
+            output.name.tokenize('-').eachWithIndex { token, index ->
+                fullName = fullName + (index == 0 ? token : token.capitalize())
+            }
+            println(fullName)
+            String[] kotlinArgs = ["-showWeaveInfo",
+                                   "-1.8",
+                                   "-inpath", project.buildDir.path + "/tmp/kotlin-classes/" + fullName,
+                                   "-aspectpath", javaCompile.classpath.asPath,
+                                   "-d", project.buildDir.path + "/tmp/kotlin-classes/" + fullName,
+                                   "-classpath", javaCompile.classpath.asPath,
+                                   "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
+
+            MessageHandler handler = new MessageHandler(true)
+            new Main().run(args, handler)
+            new Main().run(kotlinArgs, handler)
+
+            for (IMessage message : handler.getMessages(null, true)) {
+                switch (message.getKind()) {
+                    case IMessage.ABORT:
+                    case IMessage.ERROR:
+                    case IMessage.FAIL:
+                        log.error message.message, message.thrown
+                        break
+                    case IMessage.WARNING:
+                        log.warn message.message, message.thrown
+                        break
+                    case IMessage.INFO:
+                        log.info message.message, message.thrown
+                        break
+                    case IMessage.DEBUG:
+                        log.debug message.message, message.thrown
+                        break
+                }
+            }
+        }
+    }
+
+}
+
 
 
 group '[GROUP_ID]'
@@ -83,7 +146,7 @@ uploadArchives {
                         password: 'KvKjXDht(lqq'
                 )
             }
-            pom.version = '1.0.12'
+            pom.version = '1.0.16'
             pom.artifactId = 'SDK'
             pom.groupId = 'com.cbj.Bjelijah'
         }
