@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp
+package com.cbj.sdk.libui
 
 import android.os.Bundle
 import android.view.Gravity

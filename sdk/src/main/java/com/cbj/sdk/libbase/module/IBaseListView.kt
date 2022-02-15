@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp.moudles
+package com.cbj.sdk.libbase.module
 
 /**
  * @date 2021/3/11

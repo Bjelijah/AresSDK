@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp.moudles
+package com.cbj.sdk.libbase.module
 
 import android.content.Intent
 import com.alibaba.android.arouter.launcher.ARouter

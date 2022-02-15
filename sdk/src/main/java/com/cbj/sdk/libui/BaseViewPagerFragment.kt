@@ -1,14 +1,13 @@
-package com.cbj.sdk.libui.mvp
+package com.cbj.sdk.libui
 
-import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.cbj.sdk.R
-import com.cbj.sdk.libui.mvp.adapter.BasePagerAdapter
+import com.cbj.sdk.libui.adapter.BasePagerAdapter
 import com.cbj.sdk.libui.widget.NoScrollViewPager
 
 
-abstract class BaseViewPagerFragment :BaseFragment(R.layout.layout_base_vp_mvp),ViewPager.OnPageChangeListener {
+abstract class BaseViewPagerFragment :BaseFragment(R.layout.layout_base_vp),ViewPager.OnPageChangeListener {
 
     protected var mFragments:List<BaseFragment> ?= null
     protected var mAdapter:PagerAdapter?=null

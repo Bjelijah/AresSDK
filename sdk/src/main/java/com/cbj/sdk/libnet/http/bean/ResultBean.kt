@@ -13,4 +13,7 @@ data class ResultBean<T> (
     @SerializedName("code") @NonNull var code:Int,
     @SerializedName("msg")  @NonNull var msg:String,
     @SerializedName("data") @Nullable var data:T?
-    )
+    ){
+    val isSuccess
+        get() = code == 200
+}

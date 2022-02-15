@@ -1,11 +1,7 @@
-package com.cbj.sdk.libui.mvp.adapter
-
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+package com.cbj.sdk.libui.adapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.cbj.sdk.libui.mvp.BindingViewHolder
+import com.cbj.sdk.libui.BindingViewHolder
 
 
 open abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<BindingViewHolder<T>>(){
@@ -28,6 +24,12 @@ open abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<Bind
 
     fun clear(){
         mList?.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addAll(list:ArrayList<M>){
+        mList?.clear()
+        mList?.addAll(list)
         notifyDataSetChanged()
     }
 }

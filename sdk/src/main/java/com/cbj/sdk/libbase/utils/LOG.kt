@@ -1,9 +1,10 @@
 package com.cbj.sdk.libbase.utils
 
 import android.util.Log
+import mercs.xyz.sdpsdk.BuildConfig
 
 object LOG {
-    var isDebug:Boolean = true
+    var isDebug:Boolean = BuildConfig.DEBUG
 
     fun I(tag:String,msg:String){
         if (!isDebug) return

@@ -1,4 +1,4 @@
-package com.cbj.sdk.utils
+package com.cbj.sdk.libbase.utils
 
 import android.content.ContentUris
 import android.content.Context

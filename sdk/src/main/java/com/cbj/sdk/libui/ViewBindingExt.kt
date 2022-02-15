@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp
+package com.cbj.sdk.libui
 
 import android.app.Activity
 import android.app.Dialog
@@ -6,20 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-inline fun <reified VB : ViewBinding> Activity.inflate() = lazy {
+
+inline fun <reified VB : ViewBinding> Activity.bindView() = lazy {
     inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
 }
 
 
-inline fun <reified VB : ViewBinding> Dialog.inflate() = lazy {
+inline fun <reified VB : ViewBinding> Dialog.bindView() = lazy {
     inflateBinding<VB>(layoutInflater).apply { setContentView(root) }
 }
 
@@ -52,10 +51,16 @@ class FragmentBindingDelegate<VB:ViewBinding>(
 
     override fun getValue(thisRef: Fragment, property: KProperty<*>): VB {
         if (!isInitialized) {
-            thisRef.viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                fun onDestroyView() {
-                    _binding = null
+            thisRef.viewLifecycleOwner.lifecycle.addObserver(object : LifecycleEventObserver {
+//                @LifecycleEventObserver(Lifecycle.Event.ON_DESTROY)
+//                fun onDestroyView() {
+//                    _binding = null
+//                }
+
+                override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                    if (event == Lifecycle.Event.ON_DESTROY){
+                        _binding = null
+                    }
                 }
             })
             _binding = clazz.getMethod("bind", View::class.java)

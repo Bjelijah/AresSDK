@@ -70,10 +70,10 @@ class HttpManager private constructor(){
         return this
     }
 
-    fun initHttpClient(context: Context, url:String,isSSL:Boolean): HttpManager {
+    fun initHttpClient(context: Context?, url:String,isSSL:Boolean,interceptor: List<Interceptor> = mInterceptors): HttpManager {
         try {
             if (mClient==null){
-                val logInterceptor = HttpLoggingInterceptor{
+                val logInterceptor = HttpLoggingInterceptor {
                     if (it.length > 4096) {
                         var i = 0
                         while (i < it.length) {
@@ -97,18 +97,18 @@ class HttpManager private constructor(){
                 val builder = if(isSSL){
                     SSLConnection
                         .setClientKey(sslClient,sslKey)
-                        .getOKSSLBuild(context)
+                        .getOKSSLBuild(context!!)
                 }else{
                     OkHttpClient.Builder()
                 }
                 val uploadBuilder = if(isSSL){
                     SSLConnection
                         .setClientKey(sslClient,sslKey)
-                        .getOKSSLBuild(context)
+                        .getOKSSLBuild(context!!)
                 }else{
                     OkHttpClient.Builder()
                 }
-                for (i in mInterceptors){
+                for (i in interceptor){
                     builder.addInterceptor(i)
                     uploadBuilder.addInterceptor(i)
                 }
@@ -171,10 +171,6 @@ class HttpManager private constructor(){
         return mHttpApi as T
     }
 
-
-
-    //    val listType: Type = object : TypeToken<List<String>>() {}.type
-    val listType: Type = object : TypeToken<MutableList<Any>>() {}.type
     fun buildGson(): Gson =
         GsonBuilder()
             .registerTypeAdapter(Int::class.java, IntegerDefault0Adapter())
@@ -184,10 +180,7 @@ class HttpManager private constructor(){
             .registerTypeAdapter(Float::class.java, FloatDefault0Adapter())
             .registerTypeAdapter(Number::class.java, NumberDefault0Adapter())
             .registerTypeAdapter(String::class.java, StringNullAdapter())
-            .registerTypeAdapter(listType, ListDefault0Adapter())
-//                    .serializeNulls()
             .create()
-
 
 
     inline fun <reified T> getUploadService(): T {
@@ -206,4 +199,35 @@ class HttpManager private constructor(){
     interface IErrorCallback{
         fun onError()
     }
+
+
+
+    fun getRetrofit(url:String,interceptor: List<Interceptor>):Retrofit{
+        initHttpClient(null,url,false,interceptor)
+        return Retrofit.Builder()
+            .client(mClient!!)
+            .baseUrl(url)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(
+                buildGson()  // 序列化 字段null "null" ""
+            ))
+            .build()
+    }
+
+    fun getUploadRetrofit(url:String,interceptor: List<Interceptor>):Retrofit{
+        initHttpClient(null,url,false,interceptor)
+        return Retrofit.Builder()
+            .client(mUploadClient!!)
+            .baseUrl(url)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(
+                buildGson()  // 序列化 字段null "null" ""
+            ))
+            .build()
+    }
+
+
+
+
+
 }

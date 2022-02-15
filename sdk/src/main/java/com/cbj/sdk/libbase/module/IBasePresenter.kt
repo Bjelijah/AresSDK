@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp.moudles
+package com.cbj.sdk.libbase.module
 
 interface IBasePresenter {
     fun bindView(v: IBaseView)

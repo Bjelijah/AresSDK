@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp
+package com.cbj.sdk.libui
 
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.ColorUtils
 import com.alibaba.android.arouter.launcher.ARouter
+import com.blankj.utilcode.util.BarUtils
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -73,36 +74,13 @@ abstract class BaseActivity :AppCompatActivity() {
     abstract fun initView()
     abstract fun deinitView()
 
-
-
     fun hideBottomUIMenu(){
-        val v = window.decorView
-        if(Build.VERSION.SDK_INT in 12..18){
-            v.systemUiVisibility = View.GONE
-        }else if(Build.VERSION.SDK_INT>=19){
-            var uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                    View.SYSTEM_UI_FLAG_IMMERSIVE
-            v.systemUiVisibility=uiOptions
-        }
+        BarUtils.setNavBarVisibility(this,false)
     }
 
-
-
-
-
     fun setStateBarColor(@ColorInt color:Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-        }
-        if (ColorUtils.calculateLuminance(color)>=0.5){
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }else {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
-        }
+        BarUtils.setStatusBarColor(this,color)
+        BarUtils.setStatusBarLightMode(this,ColorUtils.calculateLuminance(color)>=0.5)
     }
 
 

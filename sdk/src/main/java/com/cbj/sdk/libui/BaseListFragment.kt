@@ -1,9 +1,9 @@
-package com.cbj.sdk.libui.mvp
+package com.cbj.sdk.libui
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
-import com.cbj.sdk.libui.mvp.adapter.BaseListAdapter
+import com.cbj.sdk.libui.adapter.BaseListAdapter
 import com.cbj.sdk.libui.widget.EndLessOnScrollListener
 
 

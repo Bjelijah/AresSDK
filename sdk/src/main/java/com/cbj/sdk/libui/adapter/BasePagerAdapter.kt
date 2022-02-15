@@ -1,4 +1,4 @@
-package com.cbj.sdk.libui.mvp.adapter
+package com.cbj.sdk.libui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
