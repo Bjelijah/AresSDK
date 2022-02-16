@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
 import com.alibaba.android.arouter.launcher.ARouter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
 
-open abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
+abstract class BaseFragment(layoutRes:Int) : Fragment(layoutRes) {
 
     protected var mLayout: View?=null
 

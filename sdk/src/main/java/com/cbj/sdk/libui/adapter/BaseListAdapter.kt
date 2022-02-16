@@ -4,7 +4,7 @@ import androidx.viewbinding.ViewBinding
 import com.cbj.sdk.libui.BindingViewHolder
 
 
-open abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<BindingViewHolder<T>>(){
+abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<BindingViewHolder<T>>(){
 
     protected var mList:ArrayList<M>?=null
 

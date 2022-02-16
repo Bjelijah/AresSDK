@@ -1,11 +1,9 @@
 package com.cbj.sdk.libui
 
-import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +35,6 @@ abstract class BaseActivity :AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         ARouter.getInstance().inject(this)
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
 //        var v = LayoutInflater.from(this).inflate(getLayout(),null)

@@ -60,9 +60,9 @@ val Float.pt
 val Int.pt
     get() = toFloat().pt.toInt()
 
-fun Double.format(scale: Int): String {
-    return BigDecimal(this).setScale(scale, BigDecimal.ROUND_FLOOR).toString()
-}
+fun Double.format(scale: Int): String
+    = BigDecimal(this).setScale(scale, BigDecimal.ROUND_FLOOR).toString()
+
 
 fun Float.format(n: Int) = String.format("%.${n}f", this)
 
@@ -70,4 +70,32 @@ fun <T> T.toJson(): String = Gson().toJson(this)
 
 inline fun <reified T> String.fromJson(): T {
     return Gson().fromJson(this, T::class.java)
+}
+
+fun Boolean.isFalse(block: () -> Unit) {
+    when (this) {
+        false -> {
+            block.invoke()
+        }
+    }
+}
+
+fun Boolean.isTrue(block: () -> Unit) {
+    when (this) {
+        true -> {
+            block.invoke()
+        }
+    }
+}
+
+fun <T> T?.isNotNull(block: (any: T) -> Unit) {
+    if (this != null) {
+        block.invoke(this)
+    }
+}
+
+fun <T> T?.isNull(block: () -> Unit) {
+    if (this == null) {
+        block.invoke()
+    }
 }

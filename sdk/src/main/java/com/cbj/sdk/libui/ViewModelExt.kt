@@ -3,7 +3,6 @@ package com.cbj.sdk.libui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cbj.sdk.libbase.exception.ExceptionUtil
-import com.cbj.sdk.libbase.exception.MsgThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

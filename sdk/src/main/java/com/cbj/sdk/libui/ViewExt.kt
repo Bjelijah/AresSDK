@@ -1,19 +1,10 @@
 package com.cbj.sdk.libui
 
-import android.content.Context
-import android.content.res.Resources
-import android.util.TypedValue
 import android.view.View
-import androidx.annotation.DimenRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.blankj.utilcode.util.Utils
-import com.cbj.sdk.R
-import com.cbj.sdk.libbase.utils.NumberUtil
-import java.time.LocalDateTime
 
 /**
  * @author:cbj

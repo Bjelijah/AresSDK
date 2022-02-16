@@ -9,6 +9,7 @@ class HeaderInterceptor :Interceptor {
     companion object {
         var TOKEN : String ?=null
         var API_VERSION = "0.0.0"
+        var VERSION_CODE = 0
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -18,7 +19,7 @@ class HeaderInterceptor :Interceptor {
         if (!TextUtils.isEmpty(TOKEN)){
             requestBuilder.header("Authorization", "Bearer $TOKEN")
         }
-        requestBuilder.header("Api-Version","$API_VERSION")
+        requestBuilder.header("Api-Version","$VERSION_CODE")
         return chain.proceed(requestBuilder.build())
     }
 }

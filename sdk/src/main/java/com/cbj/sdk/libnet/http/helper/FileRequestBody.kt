@@ -20,7 +20,7 @@ class FileRequestBody<T>(var requestBody: RequestBody,var callback: RetrofitCall
         }
         Log.i("123","sink=${sink.javaClass.simpleName}")
         if (bufferedSink==null){
-            bufferedSink = Okio.buffer(sink(sink))
+            bufferedSink = sink(sink).buffer()
         }
 
         requestBody.writeTo(bufferedSink!!)

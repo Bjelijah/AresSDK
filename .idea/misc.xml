@@ -7,7 +7,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android/AndroidProject/AresSDK/app/src/main/res/layout/activity_demo.xml" value="0.34010416666666665" />
+        <entry key="..\:/Android/AndroidProject/AresSDK/app/src/main/res/layout/activity_main.xml" value="0.2703125" />
+        <entry key="..\:/Android/AndroidProject/AresSDK/sdk/src/main/res/layout/layout_base_list.xml" value="0.34270833333333334" />
         <entry key="..\:/Android/AndroidProject/AresSDK/sdk/src/main/res/layout/layout_base_list_mvp.xml" value="0.25104166666666666" />
+        <entry key="..\:/Android/AndroidProject/AresSDK/sdk/src/main/res/layout/layout_base_vp.xml" value="0.34270833333333334" />
         <entry key="..\:/Android/AndroidProject/AresSDK/sdk/src/main/res/layout/layout_base_vp_mvp.xml" value="0.25104166666666666" />
       </map>
     </option>
