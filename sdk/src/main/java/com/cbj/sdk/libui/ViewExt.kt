@@ -1,10 +1,14 @@
 package com.cbj.sdk.libui
 
+import android.util.TypedValue
 import android.view.View
+import android.widget.TextView
+import androidx.annotation.DimenRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.Utils
 
 /**
  * @author:cbj
@@ -24,7 +28,7 @@ fun <T> LifecycleOwner.observe(liveData: LiveData<T>, observer: (t: T) -> Unit) 
 var lastClickTime: Long = 0
 var SPACE_TIME: Long = 1000
 var hash: Int = 0
-infix fun View.clickDelay(clickAction: () -> Unit) {
+infix fun View.singleClick(clickAction: () -> Unit) {
     this.setOnClickListener {
         if (this.hashCode() != hash) {
             hash = this.hashCode()
@@ -40,4 +44,9 @@ infix fun View.clickDelay(clickAction: () -> Unit) {
     }
 }
 
+val Int.textSize
+    get() = Utils.getApp().resources.getDimension(this)
 
+infix fun TextView.size(@DimenRes resId:Int){
+    this.setTextSize(TypedValue.COMPLEX_UNIT_PX,resId.textSize)
+}
