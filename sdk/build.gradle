@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 116
-        versionName "1.1.6"
+        versionCode 117
+        versionName "1.1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -104,7 +104,7 @@ afterEvaluate{
             maven(MavenPublication) {
                 groupId = 'com.github.Bjelijah'
                 artifactId = 'SDK'
-                version = '1.1.6'
+                version = '1.1.7'
 //                from components.java
             }
 
@@ -133,7 +133,7 @@ uploadArchives {
                 )
             }
 //            pom.version = '1.1.4-SNAPSHOT'
-            pom.version = '1.1.6'
+            pom.version = '1.1.7'
             pom.artifactId = 'SDK'
             pom.groupId = 'com.github.Bjelijah'
         }
