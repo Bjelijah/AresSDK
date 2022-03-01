@@ -35,6 +35,9 @@ fun Number.asChinese() = NumberUtil.num2Chinese(this.toInt())
 val Int.sdp
     get() = Utils.getApp().resources.getDimensionPixelSize(this)
 
+val Int.color
+    get() = Utils.getApp().resources.getColor(this)
+
 
 val Float.dp
     get() = this * Utils.getApp().resources.displayMetrics.density

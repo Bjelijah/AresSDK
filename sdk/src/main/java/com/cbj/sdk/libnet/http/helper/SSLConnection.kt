@@ -1,7 +1,6 @@
 package com.cbj.sdk.libnet.http.helper
 
 import android.content.Context
-import mercs.xyz.sdpsdk.BuildConfig
 import okhttp3.OkHttpClient
 import java.io.InputStream
 import java.lang.NullPointerException

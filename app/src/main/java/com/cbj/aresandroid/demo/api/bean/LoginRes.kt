@@ -1,5 +1,4 @@
-package xyz.mercs.libnet.http.bean.edrum
-
+package com.cbj.aresandroid.demo.api.bean
 import androidx.annotation.NonNull
 import com.google.gson.annotations.SerializedName
 

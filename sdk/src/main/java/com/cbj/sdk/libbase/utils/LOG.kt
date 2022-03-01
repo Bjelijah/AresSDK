@@ -1,7 +1,7 @@
 package com.cbj.sdk.libbase.utils
 
 import android.util.Log
-import mercs.xyz.sdpsdk.BuildConfig
+import com.cbj.sdk.BuildConfig
 
 object LOG {
     var isDebug:Boolean = BuildConfig.DEBUG
