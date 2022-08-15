@@ -1,6 +1,9 @@
 package com.cbj.sdk.libnet.http.helper
 
+import android.app.Application
 import android.content.Context
+import com.blankj.utilcode.util.AppUtils
+import com.blankj.utilcode.util.Utils
 import okhttp3.OkHttpClient
 import java.io.InputStream
 import java.lang.NullPointerException
@@ -16,13 +19,15 @@ object SSLConnection {
     private var sClient:String?=null
     private var sKey:String?=null
 
-    fun setClientKey(client:String?,key:String?):SSLConnection{
+    fun setClientKey(client:String?,key:String?):SSLConnection?{
+        if (client.isNullOrEmpty() || key.isNullOrEmpty())return null
         sClient = client
         sKey = key
+        sSSLContext = null
         return this
     }
 
-    private fun contextSSL(context: Context):SSLContext{
+    private fun contextSSL():SSLContext{
         if (sClient==null || sKey == null){
             throw NullPointerException("call setClientKey method first")
         }
@@ -32,7 +37,7 @@ object SSLConnection {
         try{
             var keyStore = KeyStore.getInstance("BKS")
 
-            ksIn = context.resources.assets.open(sClient!!)
+            ksIn = Utils.getApp().assets.open(sClient!!)
             keyStore.load(ksIn, sKey!!.toCharArray())
             var kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm())
             kmf.init(keyStore,sKey!!.toCharArray())
@@ -43,15 +48,15 @@ object SSLConnection {
         return sslContext
     }
 
-    fun getOKSSLBuild(context:Context):OkHttpClient.Builder{
-        if (sSSLContext ==null) sSSLContext = contextSSL(context)
-        return OkHttpClient.Builder()
+    fun supportSSL(builder: OkHttpClient.Builder):OkHttpClient.Builder{
+        if (sSSLContext ==null) sSSLContext = contextSSL()
+        return builder
                 .sslSocketFactory(sSSLContext!!.socketFactory, FakeX509TrustManager())
                 .hostnameVerifier { _, _ -> true }
     }
 
-    fun allowSSL(context:Context){
-        if (sSSLContext ==null) sSSLContext = contextSSL(context)
+    fun allowSSL(){
+        if (sSSLContext ==null) sSSLContext = contextSSL()
         HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true}
         HttpsURLConnection.setDefaultSSLSocketFactory(sSSLContext!!.socketFactory)
     }

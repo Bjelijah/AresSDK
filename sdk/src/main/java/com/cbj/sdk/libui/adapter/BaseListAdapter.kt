@@ -8,15 +8,12 @@ abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<BindingVi
 
     protected var mList:ArrayList<M>?=null
 
-
+    var mItemCb:((M)->Unit)?=null
 
 
     override fun onBindViewHolder(holder: BindingViewHolder<T>, position: Int) {
         init(holder.binding,mList!![position],position)
     }
-
-
-
 
     override fun getItemCount(): Int  = mList?.size?:0
 
@@ -27,7 +24,8 @@ abstract class BaseListAdapter<M,T: ViewBinding>: RecyclerView.Adapter<BindingVi
         notifyDataSetChanged()
     }
 
-    fun addAll(list:ArrayList<M>){
+    fun setData(list:List<M>){
+        if (mList==null)mList = ArrayList()
         mList?.clear()
         mList?.addAll(list)
         notifyDataSetChanged()

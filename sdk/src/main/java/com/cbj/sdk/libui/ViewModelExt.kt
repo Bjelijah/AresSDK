@@ -3,6 +3,7 @@ package com.cbj.sdk.libui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cbj.sdk.libbase.exception.ExceptionUtil
+import com.cbj.sdk.libbase.utils.LOG
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ fun ViewModel.launch(
     viewModelScope.launch(
         CoroutineExceptionHandler { _, throwable ->
             run {
+                LOG.E("123","on throwable $throwable")
                 ExceptionUtil.catchException(throwable)
                 onError(throwable)
             }

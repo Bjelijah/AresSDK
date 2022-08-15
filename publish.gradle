@@ -1,0 +1,32 @@
+apply plugin: 'maven-publish'
+
+def POM_GROUP_ID  = 'com.github.Bjelijah'
+def POM_PACKAGING = 'aar'
+def NEXUS_USERNAME = '60cb08ecaa6381038e50f87c'   //用户名
+def NEXUS_PASSWORD = 'KvKjXDht(lqq'  //密码
+def REPOSITORY_RELEASES_URL = 'https://packages.aliyun.com/maven/repository/2112588-release-Pgyrf2/'  //repository releases的URL
+
+
+afterEvaluate{
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = POM_GROUP_ID
+                artifactId = artifact_id
+                version = project.version
+                from components.release
+            }
+
+        }
+        repositories {
+            maven {
+                allowInsecureProtocol = true
+                url = REPOSITORY_RELEASES_URL
+                credentials {
+                    username NEXUS_USERNAME
+                    password NEXUS_PASSWORD
+                }
+            }
+        }
+    }
+}

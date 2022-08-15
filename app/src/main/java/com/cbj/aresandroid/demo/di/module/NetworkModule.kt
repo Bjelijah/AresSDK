@@ -1,12 +1,12 @@
 package com.cbj.aresandroid.demo.di.module
 
-import com.cbj.aresandroid.demo.api.DemoService
-import com.cbj.sdk.libnet.http.HttpManager
-import com.cbj.sdk.libnet.http.helper.HeaderInterceptor
+import com.blankj.utilcode.util.Utils
+import com.cbj.aresandroid.demo.api.ApiService
+import com.cbj.sdk.libnet.http.NetManager
+import com.cbj.sdk.libnet.http.provider.BaseNetProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -17,17 +17,16 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideDemoService(retrofit: Retrofit): DemoService = retrofit.create(
-        DemoService::class.java
+    fun provideDemoService(retrofit: Retrofit): ApiService = retrofit.create(
+        ApiService::class.java
     )
+
 
     @Provides
     @Singleton
-    fun provideRetrofit():Retrofit = HttpManager.instance.getRetrofit(
-        "http://121.196.217.158:8980/api/",
-        listOf(HeaderInterceptor().apply {
-            HeaderInterceptor.VERSION_CODE = 125
-        })
+    fun provideRetrofit():Retrofit = NetManager.getRetrofit(
+        "http://118.178.193.58:8080/tyh/",
+        BaseNetProvider(Utils.getApp())
     )
 
 }

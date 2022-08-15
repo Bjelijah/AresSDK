@@ -2,6 +2,7 @@ package com.cbj.sdk.libnet.http.bean
 
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -14,6 +15,7 @@ data class ResultBean<T> (
     @SerializedName("msg")  @NonNull var msg:String,
     @SerializedName("data") @Nullable var data:T?
     ){
-    val isSuccess
+
+    val isSuccess:Boolean
         get() = code == 200
 }

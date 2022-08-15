@@ -1,10 +1,13 @@
-package com.cbj.sdk.libui
+package com.cbj.sdk.libbase.ext
 
 import android.content.res.Resources
 import android.util.TypedValue
+import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.Utils
 import com.cbj.sdk.libbase.utils.NumberUtil
+import com.cbj.sdk.libbase.utils.SharedPreferencesUtil
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -38,6 +41,10 @@ val Int.sdp
 val Int.color
     get() = Utils.getApp().resources.getColor(this)
 
+val Int.textSize
+    get() = Utils.getApp().resources.getDimension(this).div(
+        Utils.getApp().resources.displayMetrics.scaledDensity
+    )
 
 val Float.dp
     get() = this * Utils.getApp().resources.displayMetrics.density
@@ -73,14 +80,17 @@ fun Float.format(n: Int) = String.format("%.${n}f", this)
 fun <T> T.toJson(): String = Gson().toJson(this)
 
 inline fun <reified T> String.fromJson(): T {
-    return Gson().fromJson(this, T::class.java)
+    return Gson().fromJson(this, object: TypeToken<T>(){}.type)
 }
+
+fun <T> T.toMap(): Map<String, String> = Gson().fromJson(this.toJson(),object:TypeToken<Map<String,String>>(){}.type)
 
 fun Boolean.isFalse(block: () -> Unit) {
     when (this) {
         false -> {
             block.invoke()
         }
+        else -> {}
     }
 }
 
@@ -89,6 +99,7 @@ fun Boolean.isTrue(block: () -> Unit) {
         true -> {
             block.invoke()
         }
+        else -> {}
     }
 }
 
@@ -102,4 +113,12 @@ fun <T> T?.isNull(block: () -> Unit) {
     if (this == null) {
         block.invoke()
     }
+}
+
+val preference by lazy {
+    SharedPreferencesUtil()
+}
+
+val appVersion by lazy {
+    AppUtils.getAppVersionName()
 }

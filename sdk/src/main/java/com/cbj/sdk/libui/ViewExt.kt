@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.annotation.DimenRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.blankj.utilcode.util.ToastUtils
 import com.blankj.utilcode.util.Utils
@@ -21,15 +22,19 @@ fun toast(msg:String?){
 }
 
 fun <T> LifecycleOwner.observe(liveData: LiveData<T>, observer: (t: T) -> Unit) {
-    liveData.observe(this, Observer { it?.let { t -> observer(t) } })
+    liveData.observe(this) { it?.let { t -> observer(t) } }
 }
 
+fun <T> MutableLiveData<T>.asLiveData(): LiveData<T> {
+    return this
+}
 
 var lastClickTime: Long = 0
 var SPACE_TIME: Long = 1000
 var hash: Int = 0
 infix fun View.singleClick(clickAction: () -> Unit) {
     this.setOnClickListener {
+
         if (this.hashCode() != hash) {
             hash = this.hashCode()
             lastClickTime = System.currentTimeMillis()
@@ -44,9 +49,3 @@ infix fun View.singleClick(clickAction: () -> Unit) {
     }
 }
 
-val Int.textSize
-    get() = Utils.getApp().resources.getDimension(this)
-
-infix fun TextView.size(@DimenRes resId:Int){
-    this.setTextSize(TypedValue.COMPLEX_UNIT_PX,resId.textSize)
-}

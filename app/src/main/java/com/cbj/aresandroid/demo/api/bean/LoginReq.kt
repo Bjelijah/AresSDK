@@ -7,9 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class LoginReq(
-    @SerializedName("userName") @NonNull var userName:String,
+    @SerializedName("account") @NonNull var account:String,
     @SerializedName("password") @NonNull var password:String,
-    @SerializedName("platform") @Nullable var platform:String?
-){
-    @SerializedName("version") var version:Int = HeaderInterceptor.VERSION_CODE
-}
+    @SerializedName("type") @Nullable var type:String = "app"
+)

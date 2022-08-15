@@ -1,0 +1,199 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ * version管理
+ * ext命名规则：
+ * 1.优先取Artifact Id
+ * 2.如果遇到"-"则改为"_"
+ * 3.遇到重名，从group id最后一个单词往前一直取值。中间用"_"连接
+ **/
+ext {
+    android = [
+            compileSdkVersion: 31,
+            buildToolsVersion: "31.0.0",
+            minSdkVersion    : 26,
+            targetSdkVersion : 31,
+            versionCode      : 200,
+            versionName      : "2.0.0"
+    ]
+    version = [
+            constraintlayout  : "2.0.4",
+            retrofit2         : "2.9.0",
+            okhttp3           : "4.9.0",
+            rxandroid         : "2.1.1",
+            rxjava2           : "2.2.20",
+            rxkotlin          : "2.4.0",
+            espresso_core     : "3.0.2",
+            kotlinx_coroutines: "1.3.8",
+            lifecycle_version : "2.2.0",
+            room              : "2.3.0",
+            glide             : "4.9.0",
+            espressoSdkVersion: "3.2.0",
+            kotlin_version    : "1.7.0",
+            kotlin_stdlib_jdk7: "1.7.0",
+            hilt              : "2.42",
+            anko_version      : "0.10.8",
+            dagger2SdkVersion : "2.28.3",
+            nav_version       : "2.3.2",
+            material          : "1.3.0",
+            recyclerview      : "1.1.0",
+            swiperefreshlayout: "1.1.0",
+            netWorkMonitor    : "1.0.1",
+            flutter           : "0.1.18",
+            paging            : "3.1.1"
+    ]
+
+    Deps = [
+            core_ktx                            : 'androidx.core:core-ktx:1.3.2',
+            appcompat                           : 'androidx.appcompat:appcompat:1.3.0',
+
+
+            //kotlin
+            kotlin                              : "org.jetbrains.kotlin:kotlin-stdlib:${version["kotlin_version"]}",
+            kotlin_plugin                       : "org.jetbrains.kotlin:kotlin-gradle-plugin:${version["kotlin_version"]}",
+            reflect                             : "org.jetbrains.kotlin:kotlin-reflect:${version["kotlin_version"]}",
+            kotlinx_coroutines_core             : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version["kotlinx_coroutines"]}",
+            kotlinx_coroutines_android          : "org.jetbrains.kotlinx:kotlinx-coroutines-android:${version["kotlinx_coroutines"]}",
+
+            //androidx
+            constraintlayout                    : "androidx.constraintlayout:constraintlayout:${version["constraintlayout"]}",
+
+            //network
+            retrofit2                           : "com.squareup.retrofit2:retrofit:${version["retrofit2"]}",
+            retrofit2_converter_gson            : "com.squareup.retrofit2:converter-gson:${version["retrofit2"]}",
+            retrofit2_adapter_rxjava2           : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofit2"]}",
+            okhttp3                             : "com.squareup.okhttp3:okhttp:${version["okhttp3"]}",
+            logging_interceptor                 : "com.squareup.okhttp3:logging-interceptor:${version["okhttp3"]}",
+            coroutines_adapter                  : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2",
+            stetho                              : "com.facebook.stetho:stetho:1.5.0",
+            stetho_okhttp3                      : "com.facebook.stetho:stetho-okhttp3:1.5.0",
+            persistentCookieJar                 : "com.github.franmontiel:PersistentCookieJar:v1.0.1",
+
+            //rx2
+            rxandroid2                          : "io.reactivex.rxjava2:rxandroid:${version["rxandroid"]}",
+            rxjava2                             : "io.reactivex.rxjava2:rxjava:${version["rxjava2"]}",
+            rxkotlin                            : "io.reactivex.rxjava2:rxkotlin:${version["rxkotlin"]}",
+            rxpermissions                       : "com.github.tbruyelle:rxpermissions:0.10.2",
+
+            //lifecycle
+            lifecycle_runtime                   : "androidx.lifecycle:lifecycle-runtime-ktx:${version[ "lifecycle_version"]}",
+            lifecycle_extensions                : "androidx.lifecycle:lifecycle-extensions:${version["lifecycle_version"]}",
+            lifecycle_common_java8              : "androidx.lifecycle:lifecycle-common-java8:${version["lifecycle_version"]}",
+            lifecycle_reactivestreams           : "androidx.lifecycle:lifecycle-reactivestreams:${version["lifecycle_version"]}",
+            lifecycle_livedata_ktx              : "androidx.lifecycle:lifecycle-livedata-ktx:${version["lifecycle_version"]}",
+            lifecycle_viewmodel_ktx             : "androidx.lifecycle:lifecycle-viewmodel-ktx:${version["lifecycle_version"]}",
+
+            //test
+            runner                              : 'androidx.test:runner:1.1.0',
+            junit                               : "androidx.test.ext:junit:1.1.1",
+            androidJUnitRunner                  : " androidx.test.runner.AndroidJUnitRunner ",
+            espresso_core                       : "androidx.test.espresso:espresso-core:${version["espressoSdkVersion"]}",
+            espresso_contrib                    : "com.android.support.test.espresso:espresso-contrib:${version["espressoSdkVersion"]}",
+            espresso_intents                    : "com.android.support.test.espresso:espresso-intents:${version["espressoSdkVersion"]}",
+            core_testing                        : "androidx.arch.core:core-testing:2.1.0",
+
+            //Room 数据库DB
+            room_runtime                        : "androidx.room:room-runtime:${version["room"]}",
+            room_compiler                       : "androidx.room:room-compiler:${version["room"]}",
+            room_rxjava2                        : "androidx.room:room-rxjava2:${version["room"]}",
+            room_testing                        : "androidx.room:room-testing:${version["room"]}",
+            room_ktx                            : "androidx.room:room-ktx:${version["room"]}",
+
+            //图片
+            glide                               : "com.github.bumptech.glide:glide:${version["glide"]}",
+            glide_okhttp3_integration           : "com.github.bumptech.glide:okhttp3-integration:${version["glide"]}",
+            glide_annotations                   : "com.github.bumptech.glide:annotations:${version["glide"]}",
+            glide_compiler                      : "com.github.bumptech.glide:compiler:${version["glide"]}",
+
+            paging_runtime                      : "androidx.paging:paging-runtime-ktx:${version["paging"]}",
+            paging_rxjava2                      : "androidx.paging:paging-rxjava2:${version["paging"]}",
+            threetenabp                         : "com.jakewharton.threetenabp:threetenabp:1.1.0",
+            rxbinding                           : "com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2",
+
+            dagger2                             : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
+            dagger2_android                     : "com.google.dagger:dagger-android:${version["dagger2SdkVersion"]}",
+            dagger2_android_support             : "com.google.dagger:dagger-android-support:${version["dagger2SdkVersion"]}",
+            dagger2_compiler                    : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
+            dagger2_android_processor           : "com.google.dagger:dagger-android-processor:${version["dagger2SdkVersion"]}",
+
+            exoplayer                           : "com.google.android.exoplayer:exoplayer:2.12.3",
+            extension_rtmp                      : "com.google.android.exoplayer:extension-rtmp:2.12.3",
+
+            navigation_fragment_ktx             : "androidx.navigation:navigation-fragment-ktx:${version["nav_version"]}",
+            navigation_ui_ktx                   : "androidx.navigation:navigation-ui-ktx:${version["nav_version"]}",
+            material                            : "com.google.android.material:material:${version["material"]}",
+            gson                                : "com.google.code.gson:gson:2.8.6",
+            serialization_json                  : "org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0",
+
+            //日志
+            timber                              : "com.jakewharton.timber:timber:4.7.1",
+
+            //路由
+            arouter                             : "com.alibaba:arouter-api:1.5.2",
+            arouter_compiler                    : "com.alibaba:arouter-compiler:1.5.2",
+
+            viewpager2                          : "androidx.viewpager2:viewpager2:1.0.0",
+            recyclerview                        : "androidx.recyclerview:recyclerview:${version["recyclerview"]}",
+            swiperefreshlayout                  : "androidx.swiperefreshlayout:swiperefreshlayout:${version["swiperefreshlayout"]}",
+            fragment_ktx                        : "androidx.fragment:fragment-ktx:1.2.5",
+
+            //tools
+            utilcode                            : "com.blankj:utilcodex:1.30.0",
+            preference                          : "androidx.preference:preference-ktx:1.1.0",
+            navigation_safe_args                : "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0-alpha06",
+            lottie                              : 'com.airbnb.android:lottie:3.4.2',
+            qrcode                              : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.7',
+
+            networkMonitor                      : "com.github.kongqw:NetworkMonitor:${version["netWorkMonitor"]}",
+            flutter_debug                       : "com.anytum.mobi:flutter_debug:${version["flutter"]}",
+            flutter_release                     : "com.anytum.mobi:flutter_release:${version["flutter"]}",
+
+            okdownload                          : "com.liulishuo.okdownload:okdownload:1.0.7",
+            okdownload_sqlite                   : "com.liulishuo.okdownload:sqlite:1.0.7",
+            okdownload_okhttp                   : "com.liulishuo.okdownload:okhttp:1.0.7",
+            okdownload_filedownloader           : "com.liulishuo.okdownload:filedownloader:1.0.7",
+            okdownload_ktx                      : "com.liulishuo.okdownload:ktx:1.0.7",
+
+            hilt_android                        : "com.google.dagger:hilt-android:${version["hilt"]}",
+            hilt_android_compiler               : "com.google.dagger:hilt-android-compiler:${version["hilt"]}",
+            hilt_lifecycle_viewmodel            : "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02",
+            hilt_compiler                       : "androidx.hilt:hilt-compiler:1.0.0-alpha02",
+
+            sdp                                 : 'com.github.Bjelijah:SDP:1.1.3'//sdp
+    ]
+
+}
+
+def addRepos(RepositoryHandler handler) {
+    handler.maven {
+        url "https://packages.aliyun.com/maven/repository/2112588-release-Pgyrf2/"
+        credentials {
+            username "60cb08ecaa6381038e50f87c"
+            password "KvKjXDht(lqq"
+        }
+    }
+
+    handler.maven {
+        url "https://packages.aliyun.com/maven/repository/2112588-snapshot-3H0zwN/"
+        credentials {
+            username "60cb08ecaa6381038e50f87c"
+            password "KvKjXDht(lqq"
+        }
+    }
+    handler.maven { url 'https://plugins.gradle.org/m2/' }
+    handler.maven { url 'https://maven.aliyun.com/repository/google/' }
+    handler.maven { url 'https://maven.aliyun.com/repository/central/' }
+    handler.maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+    handler.maven { url 'https://maven.aliyun.com/repository/public/' }
+    handler.maven { url "https://www.jitpack.io" }
+    handler.maven { url 'https://repo1.maven.org/maven2/' }
+    handler.maven { url 'https://storage.flutter-io.cn/download.flutter.io' }
+    handler.maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+
+    handler.maven {
+        //本地maven仓库地址
+        url uri('./repo')
+    }
+}
+
+ext.addRepos = this.&addRepos

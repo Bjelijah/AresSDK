@@ -22,7 +22,7 @@ open class SharedPreferencesUtil {
         PreferenceManager.getDefaultSharedPreferences(Utils.getApp())
 
 
-    private object SharedPreferenceDelegates {
+    protected object SharedPreferenceDelegates {
         fun int(defaultValue: Int = 0) = object : ReadWriteProperty<SharedPreferencesUtil, Int> {
             override fun getValue(thisRef: SharedPreferencesUtil, property: KProperty<*>): Int {
                 return thisRef.preferences.getInt(property.name, defaultValue)

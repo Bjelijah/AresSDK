@@ -1,10 +1,13 @@
 package com.cbj.aresandroid.demo.ui
 
-import android.view.View
 import androidx.activity.viewModels
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.cbj.aresandroid.databinding.ActivityDemoBinding
-import com.cbj.sdk.libui.*
+import com.cbj.sdk.libui.BaseActivity
+import com.cbj.sdk.libui.observe
+import com.cbj.sdk.libui.singleClick
+import com.cbj.sdk.libui.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -16,30 +19,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 @Route(path="/demo/aty")
-class DemoActivity:BaseActivity() {
+class DemoActivity:BaseActivity<ActivityDemoBinding>() {
 
-    private val mBinding : ActivityDemoBinding by bindView()
     private val mModule: DemoViewModule by viewModels()
 
-    override fun getView(): View = mBinding.root
-
     override fun initView() {
-        initObserver()
         mBinding.btn.singleClick {
             mModule.login()
         }
-
-
     }
 
-    private fun initObserver(){
+    override fun initObserver(){
         observe(mModule.res){
-            toast(it)
+            ARouter.getInstance().build("/demo/aty/list").navigation()
         }
     }
 
 
+    override fun initData() {
 
-    override fun deinitView() {
     }
 }

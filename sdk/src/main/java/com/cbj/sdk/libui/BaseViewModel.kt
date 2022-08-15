@@ -11,8 +11,7 @@ import com.cbj.sdk.libnet.http.bean.ResultBean
  */
 open class BaseViewModel:ViewModel() {
 
-    protected fun <T> checkResult(b: ResultBean<T>):Boolean =
-        if(b.isSuccess) true else throw ApiThrowable(b.code,b.msg)
+
 
     override fun onCleared() {
         super.onCleared()
