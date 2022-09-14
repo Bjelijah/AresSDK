@@ -27,7 +27,7 @@ open class SimplePagingSource<T:Any>(
 
 fun <T:Any>getPageData(requestData:suspend (page:Int, pageSize:Int)->List<T>,pageSize:Int = 20): Flow<PagingData<T>> {
     return Pager(
-        config = PagingConfig(pageSize),
+        config = PagingConfig(pageSize,pageSize),
         pagingSourceFactory = { SimplePagingSource(requestData) }
     ).flow
 }

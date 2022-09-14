@@ -1,6 +1,9 @@
 package com.cbj.aresandroid
 
 import android.app.Application
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.alibaba.android.arouter.launcher.ARouter
 import com.blankj.utilcode.util.Utils
 import dagger.hilt.android.HiltAndroidApp
@@ -11,7 +14,7 @@ import dagger.hilt.android.HiltAndroidApp
  * @Description:
  */
 @HiltAndroidApp
-class App:Application() {
+class App:Application() ,LifecycleOwner{
     override fun onCreate() {
         super.onCreate()
         if (BuildConfig.DEBUG){
@@ -22,4 +25,6 @@ class App:Application() {
         ARouter.init(this)
         Utils.init(this)
     }
+
+    override fun getLifecycle(): Lifecycle =  LifecycleRegistry(this)
 }

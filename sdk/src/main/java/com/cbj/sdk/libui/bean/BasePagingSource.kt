@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
  * @date   : 2022/8/11 17:57
  * @desc   :
  */
+@Deprecated("use SimplePagingSource", ReplaceWith("SimplePagingSource"))
 abstract class BasePagingSource<T:Any>:PagingSource<Int,T>() {
 
 

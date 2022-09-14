@@ -28,4 +28,14 @@ abstract class BasePagingAdapter<T:Any,VB: ViewBinding>(
 
     abstract fun init(bind: VB,bean:T,pos:Int)
 
+    override fun getItemCount(): Int {
+        return super.getItemCount()
+    }
+
+
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<VB> {
+        TODO("Not yet implemented")
+    }
 }

@@ -24,4 +24,5 @@ class DeviceListAdapter:BasePagingAdapter<DeviceRes,ItemDevicesBinding>(
         parent: ViewGroup,
         viewType: Int
     ): BindingViewHolder<ItemDevicesBinding> = newBindingViewHolder(parent)
+
 }

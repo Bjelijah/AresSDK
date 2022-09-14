@@ -7,7 +7,6 @@ import com.cbj.aresandroid.databinding.ActivityDemoBinding
 import com.cbj.sdk.libui.BaseActivity
 import com.cbj.sdk.libui.observe
 import com.cbj.sdk.libui.singleClick
-import com.cbj.sdk.libui.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
